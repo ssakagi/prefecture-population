@@ -120,7 +120,7 @@ Docker Desktop が起動できていないので起動させましょう
 
 を実行して Docker image を更新してください
 
-### 　特定のファイルでCSSが効かない
+### 特定のファイルでCSSが効かない
 
 tailwind.config.tsのcontentにパスを追加してください
 
