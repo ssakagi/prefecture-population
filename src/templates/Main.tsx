@@ -1,8 +1,14 @@
+"use client";
+
+import { usePrefPopulation } from "../hooks/usePrefPopulation";
 import CheckField from "../components/CheckField";
 
 type Props = { prefectures: { prefCode: number; prefName: string }[] };
 
 export default function Main({ prefectures }: Props) {
+  const { populationdata, handleClickCheck } = usePrefPopulation();
+  console.log(populationdata);
+
   return (
     <main>
       <section>
@@ -10,7 +16,7 @@ export default function Main({ prefectures }: Props) {
           <h2 className="text-2xl font-semibold border-l-4 border-gray-400 px-8 py-2 mb-8">
             都道府県
           </h2>
-          <CheckField prefectures={prefectures} />
+          <CheckField prefectures={prefectures} onChange={handleClickCheck} />
         </div>
       </section>
     </main>
