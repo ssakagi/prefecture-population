@@ -1,6 +1,9 @@
-type Props = { prefectures: { prefCode: number; prefName: string }[] };
+type Props = {
+  prefectures: { prefCode: number; prefName: string }[];
+  onChange: (prefName: string, prefCode: number, checked: boolean) => void;
+};
 
-export default function CheckField({ prefectures }: Props) {
+export default function CheckField({ prefectures, onChange }: Props) {
   return (
     <div className="flex flex-wrap gap-3">
       {prefectures.map((prefecture) => (
@@ -12,6 +15,13 @@ export default function CheckField({ prefectures }: Props) {
             className="align-[0.1rem] mr-px"
             type="checkbox"
             name="Prefecture name"
+            onChange={(event) =>
+              onChange(
+                prefecture.prefName,
+                prefecture.prefCode,
+                event.currentTarget.checked
+              )
+            }
           />
           {prefecture.prefName.length === 3
             ? "　" + prefecture.prefName
