@@ -8,6 +8,6 @@ export async function GET() {
       headers: { "X-API-KEY": process.env.API_KEY },
     }
   );
-  const data = await res.data;
+  const data = res.data;
   return NextResponse.json(data);
 }
