@@ -41,9 +41,11 @@ export function usePrefPopulation() {
     }
   }
 
+  const handleChangeSelect = (label: string) => setLabel(label);
+
   const populationdata = prefPopulation.map((value) => ({
     prefName: value.prefName,
     data: value.data.find((value) => value.label === label)!.data,
   }));
-  return { populationdata, label, handleClickCheck };
+  return { populationdata, label, handleClickCheck, handleChangeSelect };
 }
