@@ -8,7 +8,7 @@ export function usePrefPopulation() {
       data: { label: string; data: { year: number; value: number }[] }[];
     }[]
   >([]);
-  const [labelId, setLabelId] = useState(0);
+  const [label, setLabel] = useState("総人口");
 
   async function handleClickCheck(
     prefName: string,
@@ -43,7 +43,7 @@ export function usePrefPopulation() {
 
   const populationdata = prefPopulation.map((value) => ({
     prefName: value.prefName,
-    data: value.data[labelId],
+    data: value.data.find((value) => value.label === label)!.data,
   }));
-  return { populationdata, handleClickCheck };
+  return { populationdata, label, handleClickCheck };
 }
