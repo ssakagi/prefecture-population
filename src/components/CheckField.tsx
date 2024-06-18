@@ -5,10 +5,10 @@ type Props = {
 
 export default function CheckField({ prefectures, onChange }: Props) {
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-3 max-md:h-32 max-md:overflow-scroll max-md:border-r-2">
       {prefectures.map((prefecture) => (
         <label
-          className="border-2 rounded-full hover:bg-gray-100 px-2 py-1 font-bold text-lg text-[rgb(35,39,47)]"
+          className="border-2 rounded-full hover:bg-gray-100 px-2 py-1 font-bold text-lg text-[rgb(35,39,47)] max-md:text-sm"
           key={prefecture.prefName}
         >
           <input
