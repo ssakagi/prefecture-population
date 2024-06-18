@@ -93,12 +93,13 @@ http://127.0.0.1:3000 にアクセスできるか確認
 
 ### コマンド一覧
 
-| Make         | 実行する処理                                                            | 元のコマンド                                             |
-| ------------ | ----------------------------------------------------------------------- | -------------------------------------------------------- |
-| make prepare | node_modules のインストール、イメージのビルド、コンテナの起動を順に行う | docker-compose run --rm app yarn<br>docker-compose up -d |
-| make up      | コンテナの起動                                                          | docker-compose up -d                                     |
-| make build   | イメージのビルド                                                        | docker-compose build                                     |
-| make down    | コンテナの停止                                                          | docker-compose down                                      |
+| Make         | 実行する処理                                                                         | 元のコマンド                                             |
+| ------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| make prepare | node_modules のインストール、イメージのビルド、コンテナの起動を順に行う              | docker-compose run --rm app yarn<br>docker-compose up -d |
+| make up      | コンテナの起動                                                                       | docker-compose up -d                                     |
+| make build   | イメージのビルド                                                                     | docker-compose build                                     |
+| make down    | コンテナの停止                                                                       | docker-compose down                                      |
+| make test    | テストを実行　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | docker-compose exec app yarn test:watch                  |
 
 ## トラブルシューティング
 
@@ -123,6 +124,37 @@ Docker Desktop が起動できていないので起動させましょう
 ### 特定のファイルでCSSが効かない
 
 tailwind.config.tsのcontentにパスを追加してください
+
+### モジュール '"@testing-library/react"' にエクスポートされたメンバー 'screen' がありません。
+
+> Starting from RTL version 16, you'll also need to install @testing-library/dom
+>
+> -- <cite><https://github.com/testing-library/react-testing-library#readme></cite>
+
+### require() of ES Module /app/node_modules/strip-ansi/index.js from /app/node_modules/string-width/index.js not supported.
+
+> Add this to your package.json file
+>
+> ```json
+> "resolutions": {
+>   "wrap-ansi": "7.0.0",
+>   "string-width": "4.1.0"
+>   }
+> ```
+>
+> -- <cite><https://stackoverflow.com/questions/77406363/error-err-require-esm-require-of-es-module-node-modules-wrap-ansi-index-js></cite>
+
+### Error: Jest: Failed to parse the TypeScript config file /app/jest.config.ts
+
+> ts-nodeのinstallをしていなかったのが、問題でしたね。
+>
+> --<cite><https://qiita.com/yusei53/items/a8e397e856cc96e7c329></cite>
+
+### Attempted to load @next/swc-linux-arm64-gnu, but it was not installed
+
+> ホスト側でyarn addする前の状態に再度変更するか、上記の変更がコンテナ内に加わらないようにする必要があります。
+>
+> -- <cite><https://qiita.com/P-man_Brown/items/db1996bdee33ee667741></cite>
 
 <p align="right">(<a href="#top">トップへ</a>)</p>
 

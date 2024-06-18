@@ -10,3 +10,6 @@ build:
 
 down:
 	docker-compose down
+
+test:
+	docker-compose exec app yarn test:watch
