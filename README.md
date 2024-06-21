@@ -67,9 +67,9 @@
 
 ### コンテナの作成と起動
 
-.env.local ファイルを[環境変数の一覧](#環境変数の一覧)を元に作成
+.env.local ファイル及び .env.test.local ファイルを[環境変数の一覧](#環境変数の一覧)を元に作成
 
-.env.local ファイルを作成後、以下のコマンドで開発環境を構築
+ファイル作成後、以下のコマンドで開発環境を構築
 
 `make prepare`
 
@@ -155,6 +155,18 @@ tailwind.config.tsのcontentにパスを追加してください
 > ホスト側でyarn addする前の状態に再度変更するか、上記の変更がコンテナ内に加わらないようにする必要があります。
 >
 > -- <cite><https://qiita.com/P-man_Brown/items/db1996bdee33ee667741></cite>
+
+### ReferenceError: Request is not defined
+
+> Try adding this to your test:
+>
+> ```ts
+> /**
+>  * @jest-environment node
+>  */
+> ```
+>
+> -- <cite><https://github.com/vercel/next.js/discussions/59041></cite>
 
 <p align="right">(<a href="#top">トップへ</a>)</p>
 
