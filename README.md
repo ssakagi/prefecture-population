@@ -59,6 +59,63 @@
 
 <!-- Treeコマンドを使ってディレクトリ構成を記載 -->
 
+<pre>
+.
+├── .env.local
+├── .env.test.local
+├── .eslintrc.json
+├── .gitignore
+├── .storybook
+│   ├── main.ts
+│   └── preview.ts
+├── Dockerfile
+├── Makefile
+├── README.md
+├── __tests__
+│   ├── app
+│   │   └── api
+│   │       └── resas
+│   ├── components
+│   │   └── CheckField.test.tsx
+│   └── hooks
+│       └── usePrefPopulation.test.tsx
+├── cypress
+│   ├── e2e
+│   │   └── spec.cy.ts
+│   └── support
+│       ├── commands.ts
+│       └── e2e.ts
+├── cypress.config.ts
+├── docker-compose.yml
+├── jest.config.ts
+├── next-env.d.ts
+├── next.config.mjs
+├── package.json
+├── postcss.config.mjs
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   └── resas
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── CheckField.stories.tsx
+│   │   ├── CheckField.tsx
+│   │   ├── Graph.stories.tsx
+│   │   ├── Graph.tsx
+│   │   ├── Header.stories.tsx
+│   │   └── Header.tsx
+│   ├── hooks
+│   │   └── usePrefPopulation.tsx
+│   └── templates
+│       ├── Main.stories.tsx
+│       └── Main.tsx
+├── tailwind.config.ts
+├── tsconfig.json
+└── yarn.lock
+</pre>
+
 <p align="right">(<a href="#top">トップへ</a>)</p>
 
 ## 開発環境構築
@@ -174,3 +231,7 @@ tailwind.config.tsのcontentにパスを追加してください
 ## 参考資料
 
 - <https://qiita.com/shun198/items/c983c713452c041ef787>
+- <https://zenn.dev/shimapon3/articles/13e3d4b147742c>
+- <https://zenn.dev/kawaxumax/articles/9c4cea2d731dae>
+
+<p align="right">(<a href="#top">トップへ</a>)</p>
