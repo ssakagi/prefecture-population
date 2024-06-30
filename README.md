@@ -100,6 +100,7 @@ http://127.0.0.1:3000 にアクセスできるか確認
 | make build   | イメージのビルド                                                                     | docker-compose build                                     |
 | make down    | コンテナの停止                                                                       | docker-compose down                                      |
 | make test    | テストを実行　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | docker-compose exec app yarn test:watch                  |
+| make catalog | カタログを作成                                                                       | docker-compose exec -d app yarn storybook                |
 
 ## トラブルシューティング
 

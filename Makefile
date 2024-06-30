@@ -13,3 +13,6 @@ down:
 
 test:
 	docker-compose exec app yarn test:watch
+
+catalog:
+	docker-compose exec -d app yarn storybook
