@@ -8,6 +8,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "都道府県別人口推移",
   description: "都道府県別人口推移のグラフを表示するWebアプリケーション",
+  openGraph: {
+    title: "都道府県別人口推移",
+    description: "都道府県別人口推移のグラフを表示するWebアプリケーション",
+    siteName: "都道府県別人口推移",
+    locale: "ja_JP",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
