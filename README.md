@@ -226,6 +226,16 @@ tailwind.config.tsのcontentにパスを追加してください
 >
 > -- <cite><https://github.com/vercel/next.js/discussions/59041></cite>
 
+### Error: connect ECONNREFUSED 127.0.0.1:3000
+
+ビルド時にはサーバが立っていないのでファイル生成にroute handlersを利用しているとビルドが通りません
+<br>
+ローカルでは`make up`してからコンテナに対して`yarn build`を指示することでビルドを通すことができます
+<br>
+VercelとGitHubの連携によってアプリをデプロイしている場合は直接APIを叩くようにしてください
+<br>
+[Errors when try to build Nextjs app router application](https://github.com/vercel/next.js/discussions/61072)
+
 <p align="right">(<a href="#top">トップへ</a>)</p>
 
 ## 参考資料
