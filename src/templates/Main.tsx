@@ -9,7 +9,6 @@ type Props = { prefectures: { prefCode: number; prefName: string }[] };
 export default function Main({ prefectures }: Props) {
   const { populationdata, label, handleClickCheck, handleChangeSelect } =
     usePrefPopulation();
-  console.log(populationdata);
 
   return (
     <main>
