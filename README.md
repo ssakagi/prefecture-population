@@ -59,6 +59,63 @@
 
 <!-- Treeコマンドを使ってディレクトリ構成を記載 -->
 
+<pre>
+.
+├── .env.local
+├── .env.test.local
+├── .eslintrc.json
+├── .gitignore
+├── .storybook
+│   ├── main.ts
+│   └── preview.ts
+├── Dockerfile
+├── Makefile
+├── README.md
+├── __tests__
+│   ├── app
+│   │   └── api
+│   │       └── resas
+│   ├── components
+│   │   └── CheckField.test.tsx
+│   └── hooks
+│       └── usePrefPopulation.test.tsx
+├── cypress
+│   ├── e2e
+│   │   └── spec.cy.ts
+│   └── support
+│       ├── commands.ts
+│       └── e2e.ts
+├── cypress.config.ts
+├── docker-compose.yml
+├── jest.config.ts
+├── next-env.d.ts
+├── next.config.mjs
+├── package.json
+├── postcss.config.mjs
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   └── resas
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── CheckField.stories.tsx
+│   │   ├── CheckField.tsx
+│   │   ├── Graph.stories.tsx
+│   │   ├── Graph.tsx
+│   │   ├── Header.stories.tsx
+│   │   └── Header.tsx
+│   ├── hooks
+│   │   └── usePrefPopulation.tsx
+│   └── templates
+│       ├── Main.stories.tsx
+│       └── Main.tsx
+├── tailwind.config.ts
+├── tsconfig.json
+└── yarn.lock
+</pre>
+
 <p align="right">(<a href="#top">トップへ</a>)</p>
 
 ## 開発環境構築
@@ -67,9 +124,9 @@
 
 ### コンテナの作成と起動
 
-.env.local ファイルを[環境変数の一覧](#環境変数の一覧)を元に作成
+.env.local ファイル及び .env.test.local ファイルを[環境変数の一覧](#環境変数の一覧)を元に作成
 
-.env.local ファイルを作成後、以下のコマンドで開発環境を構築
+ファイル作成後、以下のコマンドで開発環境を構築
 
 `make prepare`
 
@@ -93,12 +150,14 @@ http://127.0.0.1:3000 にアクセスできるか確認
 
 ### コマンド一覧
 
-| Make         | 実行する処理                                                            | 元のコマンド                                             |
-| ------------ | ----------------------------------------------------------------------- | -------------------------------------------------------- |
-| make prepare | node_modules のインストール、イメージのビルド、コンテナの起動を順に行う | docker-compose run --rm app yarn<br>docker-compose up -d |
-| make up      | コンテナの起動                                                          | docker-compose up -d                                     |
-| make build   | イメージのビルド                                                        | docker-compose build                                     |
-| make down    | コンテナの停止                                                          | docker-compose down                                      |
+| Make         | 実行する処理                                                                         | 元のコマンド                                             |
+| ------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| make prepare | node_modules のインストール、イメージのビルド、コンテナの起動を順に行う              | docker-compose run --rm app yarn<br>docker-compose up -d |
+| make up      | コンテナの起動                                                                       | docker-compose up -d                                     |
+| make build   | イメージのビルド                                                                     | docker-compose build                                     |
+| make down    | コンテナの停止                                                                       | docker-compose down                                      |
+| make test    | テストを実行　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | docker-compose exec app yarn test:watch                  |
+| make catalog | カタログを作成                                                                       | docker-compose exec -d app yarn storybook                |
 
 ## トラブルシューティング
 
@@ -120,8 +179,69 @@ Docker Desktop が起動できていないので起動させましょう
 
 を実行して Docker image を更新してください
 
+### 特定のファイルでCSSが効かない
+
+tailwind.config.tsのcontentにパスを追加してください
+
+### モジュール '"@testing-library/react"' にエクスポートされたメンバー 'screen' がありません。
+
+> Starting from RTL version 16, you'll also need to install @testing-library/dom
+>
+> -- <cite><https://github.com/testing-library/react-testing-library#readme></cite>
+
+### require() of ES Module /app/node_modules/strip-ansi/index.js from /app/node_modules/string-width/index.js not supported.
+
+> Add this to your package.json file
+>
+> ```json
+> "resolutions": {
+>   "wrap-ansi": "7.0.0",
+>   "string-width": "4.1.0"
+>   }
+> ```
+>
+> -- <cite><https://stackoverflow.com/questions/77406363/error-err-require-esm-require-of-es-module-node-modules-wrap-ansi-index-js></cite>
+
+### Error: Jest: Failed to parse the TypeScript config file /app/jest.config.ts
+
+> ts-nodeのinstallをしていなかったのが、問題でしたね。
+>
+> --<cite><https://qiita.com/yusei53/items/a8e397e856cc96e7c329></cite>
+
+### Attempted to load @next/swc-linux-arm64-gnu, but it was not installed
+
+> ホスト側でyarn addする前の状態に再度変更するか、上記の変更がコンテナ内に加わらないようにする必要があります。
+>
+> -- <cite><https://qiita.com/P-man_Brown/items/db1996bdee33ee667741></cite>
+
+### ReferenceError: Request is not defined
+
+> Try adding this to your test:
+>
+> ```ts
+> /**
+>  * @jest-environment node
+>  */
+> ```
+>
+> -- <cite><https://github.com/vercel/next.js/discussions/59041></cite>
+
+### Error: connect ECONNREFUSED 127.0.0.1:3000
+
+ビルド時にはサーバが立っていないのでファイル生成にroute handlersを利用しているとビルドが通りません
+<br>
+ローカルでは`make up`してからコンテナに対して`yarn build`を指示することでビルドを通すことができます
+<br>
+VercelとGitHubの連携によってアプリをデプロイしている場合は直接APIを叩くようにしてください
+<br>
+[Errors when try to build Nextjs app router application](https://github.com/vercel/next.js/discussions/61072)
+
 <p align="right">(<a href="#top">トップへ</a>)</p>
 
 ## 参考資料
 
 - <https://qiita.com/shun198/items/c983c713452c041ef787>
+- <https://zenn.dev/shimapon3/articles/13e3d4b147742c>
+- <https://zenn.dev/kawaxumax/articles/9c4cea2d731dae>
+
+<p align="right">(<a href="#top">トップへ</a>)</p>
